@@ -61,10 +61,14 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult SendCommand(VendistaWebModel model)
+    public async Task<IActionResult> SendCommand(VendistaWebModel model)
     {
-        Console.WriteLine("command sended");
-
+        var types = await _service.GetCommandTypes();
+        var idCommand = types.FirstOrDefault(x => x.Id == model.SelectedType)?.Id;
+        if (idCommand is { } id)
+        {
+            await _service.SendVendistaCommand(model.TerminalId, id, model.Parameter1, model.Parameter2, model.Parameter3);
+        }
         return RedirectToAction("Vendista", "Home");
     }
 

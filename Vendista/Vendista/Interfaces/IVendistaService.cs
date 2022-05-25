@@ -2,7 +2,8 @@
 
 public interface IVendistaService
 {
-    public Task<IEnumerable<CommandType>> GetCommandTypes();
-    public Task<IEnumerable<VendistaCommand>> GetCommands(int terminalId);
-    public Task<string> GetToken();
+    Task<IEnumerable<CommandType>> GetCommandTypes();
+    Task<IEnumerable<VendistaCommand>> GetCommands(int terminalId);
+    Task SendVendistaCommand(int terminalId, int commandId, int? parameter1, int? paremeter2, int? paremeter3);
+    Task<string> GetToken();
 }
