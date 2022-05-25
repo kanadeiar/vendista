@@ -5,7 +5,64 @@
 <div class="border-1 bg-light shadow rounded-1 p-2">
     <h1 class="p-4 bg-success text-white text-center rounded-2">ТЗ (C#, MVC)</h1>
 
-    
+    <p>Повторить страницу “Отправка команды на терминал” нашего портала Вендиста.</p>
+
+    <p>Видео, как должно работать выполненное задание:</p>
+    <a href="https://disk.yandex.ru/i/hpLK2JTXTjU9CA">https://disk.yandex.ru/i/hpLK2JTXTjU9CA</a>
+
+    <p>Все данные в готовом виде получаются через уже имеющееся HTTP Json API.</p>
+    <p>Описание HTTP Json API (использовать это готовое апи, свое делать не нужно, нужно только фронтенд): </p>
+    <a href="https://docs.google.com/document/d/108QFu8JpayQTB2yy0ALuz76UtQNMKIdS">https://docs.google.com/document/d/108QFu8JpayQTB2yy0ALuz76UtQNMKIdS</a>
+
+    <p>Собственно, задание:</p>
+    <h3>Отправка команды на терминал</h3>
+    <p>Открывается страница, где вверху можно ввести номер терминала, выбрать команду для отправки (выбор из списка) и параметр 1- 3 (целое число). Кнопка “Отправить”.</p>
+
+    <p>Ниже - таблица с ранее отправленными командами:</p>
+    <ul>
+        <li>Дата и время отправки</li>
+        <li>Команда</li>
+        <li>Параметр 1-3 (только значения)</li>
+        <li>Статус (отправка в процессе, доставлено, не доставлено)</li>
+    </ul>
+
+    <p>Сначала сделать запрос "http://178.57.218.210:198/commands/types”, он вернет ответ вида</p>
+    <pre><code>{
+      "id": 3,
+      "name": "Стартовый кредит",
+      "parameter_name1": "Сумма кредита (в копейках)",
+      "parameter_name2": null,
+      "parameter_name3": null,
+      "parameter_name4": null,
+      "str_parameter_name1": null,
+      "str_parameter_name2": null,
+      "parameter_default_value1": 10000,
+      "parameter_default_value2": null,
+      "parameter_default_value3": null,
+      "parameter_default_value4": null,
+      "str_parameter_default_value1": null,
+      "str_parameter_default_value2": null,
+      "visible": true
+    },</code></pre>
+    <p>На странице вывести поля ввода (с подсказками):</p>
+    <ul>
+        <li>ID Терминала</li>
+        <li>Команда (выпадающий список name)</li>
+        <li>Параметр 1 (перед ним вывести подсказку parameter_name1, автозаполнять parameter_default_value1)</li>
+        <li>Параметр 2 (перед ним вывести подсказку parameter_name2, автозаполнять parameter_default_value2)</li>
+        <li>Параметр 3 (перед ним вывести подсказку parameter_name3, автозаполнять parameter_default_value3)</li>
+    </ul>
+    <p>Если parameter_nameX = null, поле ввода и подсказку для этого параметра не выводить. Если все = null, значит команда без параметров и запрашивать их не нужно</p>
+    <p>По кнопке Отправить выполнять запрос /terminals/{id}/command</p>
+    <p>Пример:</p>
+    <pre><code>curl -X 'POST' \
+      'http://178.57.218.210:198/terminals/137/commands?token=36ec10ae50dd48d7bd69b23a' \
+      -H 'accept: text/plain' \
+      -H 'Content-Type: application/json' \
+      -d '{
+      "command_id": 1
+    }'</code></pre>
+    <p>Авторизацию, пагинацию, таблицу терминалов - делать не обязательно</p>
 </div>
 
 
