@@ -1,0 +1,37 @@
+﻿@model VendistaWebModel
+@{
+    ViewBag.Title = "Главная";
+}
+
+<div class="border-1 bg-light shadow rounded-1 p-2">
+    <h1 class="p-4 bg-success text-white text-center rounded-2">ТЗ (C#, MVC)</h1>
+
+    <h5>Отправка команды на терминал</h5>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="form-label">ID терминала</label>
+            <input asp-for="TerminalId" class="form-control" placeholder="Введите идентификатор терминала" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Команда</label>
+            <select asp-for="SelectedType" class="form-select" asp-items="@(new SelectList(Model.CommandTypes, "Id", "Name"))">
+                <option value="" disabled selected>Выберите команду</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <label class="form-label">ID терминала</label>
+            <input asp-for="Parameter1" class="form-control" placeholder="Введите параметр 1" />
+        </div>
+        <div class="col-md">
+            <label class="form-label">ID терминала</label>
+            <input asp-for="Parameter2" class="form-control" placeholder="Введите параметр 2" />
+        </div>
+        <div class="col-md">
+            <label class="form-label">ID терминала</label>
+            <input asp-for="Parameter3" class="form-control" placeholder="Введите параметр 3" />
+        </div>
+    </div>
+</div>
