@@ -51,5 +51,28 @@
         </div>
     </form>
 
-
+    <div class="mt-3">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>№</th><th>Дата и время</th><th>Команда</th><th>Параметр 1</th><th>Параметр 2</th><th>Параметр 3</th><th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{var i = 1;}
+                @foreach (var item in Model.VendistaCommands)
+                {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@item.Time_Created.ToString()</td>
+                        <td>@item.CommandName</td>
+                        <td>@item.Parameter1</td>
+                        <td>@item.Parameter2</td>
+                        <td>@item.Parameter3</td>
+                        <td>@item.State_Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

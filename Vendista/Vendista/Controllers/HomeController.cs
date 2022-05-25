@@ -6,6 +6,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IVendistaService _service;
+    const int defaultTerminalId = 129;
 
     public HomeController(ILogger<HomeController> logger, IVendistaService service)
     {
@@ -21,10 +22,16 @@ public class HomeController : Controller
     public async Task<IActionResult> Vendista()
     {
         var types = await _service.GetCommandTypes();
+        var commands = await _service.GetCommands(defaultTerminalId);
+        foreach (var item in commands)
+        {
+            item.CommandName = types.FirstOrDefault(x => x.Id == item.Command_Id)?.Name ?? "<отсутствует>";
+        }
         var model = new VendistaWebModel
         {
-            TerminalId = 129,
+            TerminalId = defaultTerminalId,
             CommandTypes = types,
+            VendistaCommands = commands,
         };
         return View(model);
     }
@@ -33,7 +40,13 @@ public class HomeController : Controller
     public async Task<IActionResult> Vendista(VendistaWebModel model)
     {
         var types = await _service.GetCommandTypes();
+        var commands = await _service.GetCommands(defaultTerminalId);
+        foreach (var item in commands)
+        {
+            item.CommandName = types.FirstOrDefault(x => x.Id == item.Command_Id)?.Name ?? "<отсутствует>";
+        }
         model.CommandTypes = types;
+        model.VendistaCommands = commands;
         if (model.SelectedType != 0)
         {
             var selected = types.First(x => x.Id == model.SelectedType);

@@ -11,4 +11,5 @@ public class VendistaWebModel
     public int? Parameter2 { get; set; }
     public string Parameter3Name { get; set; }
     public int? Parameter3 { get; set; }
+    public IEnumerable<VendistaCommand> VendistaCommands { get; set; }
 }
