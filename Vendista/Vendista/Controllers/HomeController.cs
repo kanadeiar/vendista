@@ -25,9 +25,34 @@ public class HomeController : Controller
         {
             TerminalId = 129,
             CommandTypes = types,
-            Parameter1 = 10_000,
         };
         return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Vendista(VendistaWebModel model)
+    {
+        var types = await _service.GetCommandTypes();
+        model.CommandTypes = types;
+        if (model.SelectedType != 0)
+        {
+            var selected = types.First(x => x.Id == model.SelectedType);
+            model.Parameter1Name = selected.Parameter_Name1;
+            model.Parameter1 = selected.Parameter_Default_Value1;
+            model.Parameter2Name = selected.Parameter_Name2;
+            model.Parameter2 = selected.Parameter_Default_Value2;
+            model.Parameter3Name = selected.Parameter_Name3;
+            model.Parameter3 = selected.Parameter_Default_Value3;
+        }
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult SendCommand(VendistaWebModel model)
+    {
+        Console.WriteLine("command sended");
+
+        return RedirectToAction("Vendista", "Home");
     }
 
     public IActionResult About()
